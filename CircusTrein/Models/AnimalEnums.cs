@@ -1,6 +1,6 @@
-﻿namespace CircusTrein.Classes
+﻿namespace CircusTrein.Models
 {
-    public class CustomEnum
+    public class AnimalEnums
     {
         public enum SizePoint
         {

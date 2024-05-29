@@ -1,4 +1,4 @@
-using CircusTrein.Classes;
+using CircusTrein.Models;
 
 namespace CircusTrein
 {
@@ -24,7 +24,7 @@ namespace CircusTrein
         {
             if (!String.IsNullOrWhiteSpace(cb_Size.SelectedItem.ToString()) && !String.IsNullOrWhiteSpace(cb_FoodType.SelectedItem.ToString()))
             {
-                Animal newAnimal = new Animal((CustomEnum.SizePoint)cb_Size.SelectedItem, (CustomEnum.FoodType)cb_FoodType.SelectedItem);
+                Animal newAnimal = new Animal((AnimalEnums.SizePoint)cb_Size.SelectedItem, (AnimalEnums.FoodType)cb_FoodType.SelectedItem);
 
                 animals.Add(newAnimal);
                 lb_AnimalList.Items.Add(newAnimal.ToString());
@@ -66,12 +66,12 @@ namespace CircusTrein
             List<Animal> herbivoreDescendingAnimals = animals.OrderByDescending(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).Reverse().ToList();
             List<Animal> herbivoreAscendingAnimals = animals.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).ToList();
 
-            carnivoreDescendingTrain.DevideAnimalsOverWagons(carnivoreDescendingAnimals);
-            carnivoreAscendingTrain.DevideAnimalsOverWagons(carnivoreAscendingAnimals);
-            herbivoreDescendingTrain.DevideAnimalsOverWagons(herbivoreDescendingAnimals);
-            herbivoreAscendingTrain.DevideAnimalsOverWagons(herbivoreAscendingAnimals);
+            carnivoreDescendingTrain.DivideAnimalsOverWagons(carnivoreDescendingAnimals);
+            carnivoreAscendingTrain.DivideAnimalsOverWagons(carnivoreAscendingAnimals);
+            herbivoreDescendingTrain.DivideAnimalsOverWagons(herbivoreDescendingAnimals);
+            herbivoreAscendingTrain.DivideAnimalsOverWagons(herbivoreAscendingAnimals);
 
-            //train.DevideAnimalsOverWagons(animals);
+            //train.DivideAnimalsOverWagons(animals);
 
             //OutputResult(carnivoreDescendingTrain);
 
@@ -90,7 +90,7 @@ namespace CircusTrein
 
         private void FillSizeComboBox()
         {
-            CustomEnum.SizePoint[] sizePointItems = (CustomEnum.SizePoint[])Enum.GetValues(typeof(CustomEnum.SizePoint));
+            AnimalEnums.SizePoint[] sizePointItems = (AnimalEnums.SizePoint[])Enum.GetValues(typeof(AnimalEnums.SizePoint));
 
             for (int i = 0; i < sizePointItems.Length; i++)
             {
@@ -100,7 +100,7 @@ namespace CircusTrein
 
         private void FillFoodTypeComboBox()
         {
-            CustomEnum.FoodType[] foodTypeItems = (CustomEnum.FoodType[])Enum.GetValues(typeof(CustomEnum.FoodType));
+            AnimalEnums.FoodType[] foodTypeItems = (AnimalEnums.FoodType[])Enum.GetValues(typeof(AnimalEnums.FoodType));
 
             for (int i = 0; i < foodTypeItems.Length; i++)
             {
@@ -136,12 +136,12 @@ namespace CircusTrein
         private void btn_LoadScenario1_Click(object sender, EventArgs e)
         {
             animals.AddRange(new List<Animal>() {
-                new Animal(CustomEnum.SizePoint.Small ,CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Big ,CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Big ,CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium ,CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium ,CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium ,CustomEnum.FoodType.Herbivore)
+                new Animal(AnimalEnums.SizePoint.Small ,AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big ,AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Big ,AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium ,AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium ,AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium ,AnimalEnums.FoodType.Herbivore)
             });
 
             foreach (Animal animal in animals)
@@ -153,15 +153,15 @@ namespace CircusTrein
         private void btn_LoadScenario2_Click(object sender, EventArgs e)
         {
             animals.AddRange(new List<Animal>() {
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Herbivore)
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)
             });
 
             foreach (Animal animal in animals)
@@ -173,12 +173,12 @@ namespace CircusTrein
         private void btn_LoadScenario3_Click(object sender, EventArgs e)
         {
             animals.AddRange(new List<Animal>() {
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Herbivore)
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)
             });
 
             foreach (Animal animal in animals)
@@ -191,17 +191,17 @@ namespace CircusTrein
         {
             animals.AddRange(new List<Animal>()
             {
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Herbivore)
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)
             });
 
             foreach (Animal animal in animals)
@@ -214,11 +214,11 @@ namespace CircusTrein
         {
             animals.AddRange(new List<Animal>()
             {
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Herbivore)
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)
             });
 
             foreach (Animal animal in animals)
@@ -231,14 +231,14 @@ namespace CircusTrein
         {
             animals.AddRange(new List<Animal>()
             {
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore)
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore)
             });
 
             foreach (Animal animal in animals)
@@ -251,30 +251,30 @@ namespace CircusTrein
         {
             animals.AddRange(new List<Animal>()
             {
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Small, CustomEnum.FoodType.Carnivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Big, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore),
-                new Animal(CustomEnum.SizePoint.Medium, CustomEnum.FoodType.Herbivore)
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore)
             });
 
             foreach (Animal animal in animals)

@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CircusTrein.Classes
+﻿namespace CircusTrein.Models
 {
     public class Train
     {
-        private List<Wagon> wagons { get; set; }
         public IReadOnlyList<Wagon> Wagons { get { return wagons; } }
+        private List<Wagon> wagons { get; set; } = new();
 
-        public Train()
-        {
-            wagons = new();
-        }
+        public IReadOnlyList<Animal> AnimalsToDivide { get { return animalsToDivide; } }
+        private List<Animal> animalsToDivide { get; set; } = new();
 
-        public void DevideAnimalsOverWagons(List<Animal> animals)
+        public void DivideAnimalsOverWagons(List<Animal> animals)
         {
             if (wagons.Count == 0)
             {
@@ -27,18 +19,18 @@ namespace CircusTrein.Classes
             {
                 bool animalAddedToWagon = false;
 
-                foreach (Wagon currentWagon in Wagons.ToList())
+                foreach (Wagon currentWagon in wagons)
                 {
                     if (!animalAddedToWagon)
                     {
-                        animalAddedToWagon = currentWagon.TryToAddAnimalToWagon(currentAnimal, animalAddedToWagon);
+                        animalAddedToWagon = currentWagon.TryToAddAnimalToWagon(currentAnimal);
                     }
                 }
 
                 if (!animalAddedToWagon)
                 {
                     AddWagonToTrain();
-                    Wagons.Last().TryToAddAnimalToWagon(currentAnimal, animalAddedToWagon);
+                    wagons.Last().TryToAddAnimalToWagon(currentAnimal);
                 }
             }
         }
@@ -46,6 +38,11 @@ namespace CircusTrein.Classes
         public void AddWagonToTrain()
         {
             wagons.Add(new Wagon());
+        }
+
+        public void AddAnimalToAnimalList(Animal animal)
+        {
+            animalsToDivide.Add(animal);
         }
     }
 }
