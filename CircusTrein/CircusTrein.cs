@@ -62,7 +62,7 @@ namespace CircusTrein
             Train herbivoreAscendingTrain = new();
 
             List<Animal> carnivoreDescendingAnimals = animals.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).Reverse().ToList();
-            List<Animal> carnivoreAscendingAnimals = animals.OrderBy(a => (int)a.SizePoint).ThenBy(a => (int)a.FoodType).ToList();
+            List<Animal> carnivoreAscendingAnimals = animals.OrderByDescending(a => (int)a.SizePoint).ThenBy(a => (int)a.FoodType).ToList();
             List<Animal> herbivoreDescendingAnimals = animals.OrderByDescending(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).Reverse().ToList();
             List<Animal> herbivoreAscendingAnimals = animals.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).ToList();
 

@@ -4,7 +4,7 @@
     {
         public const int _MAXCAPACITYSIZE = 10;
 
-        public int CurrentCapacity { get; private set; } = 0;
+        public int CurrentCapacity { get { return animals.Sum(a => (int)a.SizePoint); } }
         public IReadOnlyList<Animal> Animals { get { return animals; } }
         private List<Animal> animals { get; set; } = new();
 
@@ -73,7 +73,7 @@
         private bool AddAnimalToWagon(Animal animal)
         {
             animals.Add(animal);
-            CurrentCapacity += (int)animal.SizePoint;
+            //CurrentCapacity += (int)animal.SizePoint;
             return true;
         }
 
@@ -101,12 +101,12 @@
             return animals.Where(a => a.FoodType == AnimalEnums.FoodType.Carnivore).Count() != 0;
         }
 
-        private bool IsCurrentAnimalBiggerThanCarnivore(Animal currentAnimal, Animal carnivore)
+        public bool IsCurrentAnimalBiggerThanCarnivore(Animal currentAnimal, Animal carnivore)
         {
             return currentAnimal.SizePoint > carnivore.SizePoint;
         }
 
-        private bool IsCurrentAnimalCarnivore(Animal currentAnimal)
+        public bool IsCurrentAnimalCarnivore(Animal currentAnimal)
         {
             return currentAnimal.FoodType == AnimalEnums.FoodType.Carnivore;
         }
