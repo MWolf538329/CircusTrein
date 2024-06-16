@@ -27,53 +27,11 @@
                 }
             }
             return false;
-
-
-
-
-            //if (Animals!.Count == 0) // wagon.animals is empty.
-            //{
-            //    return AddAnimalToWagon(currentAnimal); // Animal is added to a wagon.
-            //}
-            //else if ((CurrentCapacity + (int)currentAnimal.SizePoint) <= Wagon._MAXCAPACITYSIZE) // CurrentCapacity + Animal.Points does NOT exceed Wagon_MAXCAPACITYSIZE.
-            //{
-            //    wagonHasCarnivore = false;
-
-            //    foreach (Animal animalInWagon in Animals.ToList())
-            //    {
-            //        if (!animalAddedToWagon)
-            //        {
-            //            if (animalInWagon.FoodType == AnimalEnums.FoodType.Carnivore)
-            //            {
-            //                wagonHasCarnivore = true;
-
-            //                if ((int)currentAnimal.SizePoint > (int)animalInWagon.SizePoint)
-            //                {
-            //                    if (currentAnimal.FoodType != AnimalEnums.FoodType.Carnivore)
-            //                    {
-            //                        animalAddedToWagon = AddAnimalToWagon(currentAnimal);
-            //                        return animalAddedToWagon;
-            //                    }
-            //                }
-            //            }
-            //            else
-            //            {
-            //                if (!wagonHasCarnivore)
-            //                {
-            //                    animalAddedToWagon = AddAnimalToWagon(currentAnimal);
-            //                    return animalAddedToWagon;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //return false;
         }
 
         private bool AddAnimalToWagon(Animal animal)
         {
             animals.Add(animal);
-            //CurrentCapacity += (int)animal.SizePoint;
             return true;
         }
 

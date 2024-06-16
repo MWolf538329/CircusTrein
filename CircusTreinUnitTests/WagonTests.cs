@@ -281,7 +281,77 @@ namespace CircusTreinUnitTests
 
 
 
+        [TestMethod]
+        public void DivideAnimalsOverWagons_Scenario3()
+        {
+            // NOT WORKING YET!
+            // Arrange
+            List<Animal> animals = new List<Animal>()
+            {
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
+                new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
+                new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)
+            };
 
+            Train carnivoreDescendingTrain = new();
+            Train carnivoreAscendingTrain = new();
+            Train herbivoreDescendingTrain = new();
+            Train herbivoreAscendingTrain = new();
+
+            List<Animal> carnivoreDescendingAnimals = animals.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).Reverse().ToList();
+            List<Animal> carnivoreAscendingAnimals = animals.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).ToList();
+            List<Animal> herbivoreDescendingAnimals = animals.OrderByDescending(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).Reverse().ToList();
+            List<Animal> herbivoreAscendingAnimals = animals.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).ToList();
+
+            // Act
+            carnivoreDescendingTrain.DivideAnimalsOverWagons(carnivoreDescendingAnimals);
+            carnivoreAscendingTrain.DivideAnimalsOverWagons(carnivoreAscendingAnimals);
+            herbivoreDescendingTrain.DivideAnimalsOverWagons(herbivoreDescendingAnimals);
+            herbivoreAscendingTrain.DivideAnimalsOverWagons(herbivoreAscendingAnimals);
+
+            // Assert
+            // CarnivoreDescendingAnimals == Most Efficient
+            Assert.AreEqual(3, carnivoreDescendingTrain.Wagons.Count());
+
+            // Wagon 1:
+            Assert.AreEqual(AnimalEnums.SizePoint.Small, carnivoreDescendingTrain.Wagons[0].Animals[0].SizePoint);
+            Assert.AreEqual(AnimalEnums.FoodType.Carnivore, carnivoreDescendingTrain.Wagons[0].Animals[0].FoodType);
+
+            Assert.AreEqual(AnimalEnums.SizePoint.Big, carnivoreDescendingTrain.Wagons[0].Animals[1].SizePoint);
+            Assert.AreEqual(AnimalEnums.FoodType.Herbivore, carnivoreDescendingTrain.Wagons[0].Animals[1].FoodType);
+
+            Assert.AreEqual(AnimalEnums.SizePoint.Medium, carnivoreDescendingTrain.Wagons[0].Animals[2].SizePoint);
+            Assert.AreEqual(AnimalEnums.FoodType.Herbivore, carnivoreDescendingTrain.Wagons[0].Animals[2].FoodType);
+
+            // Wagon 2:
+            Assert.AreEqual(AnimalEnums.SizePoint.Small, carnivoreDescendingTrain.Wagons[1].Animals[0].SizePoint);
+            Assert.AreEqual(AnimalEnums.FoodType.Carnivore, carnivoreDescendingTrain.Wagons[1].Animals[0].FoodType);
+
+            Assert.AreEqual(AnimalEnums.SizePoint.Big, carnivoreDescendingTrain.Wagons[1].Animals[1].SizePoint);
+            Assert.AreEqual(AnimalEnums.FoodType.Herbivore, carnivoreDescendingTrain.Wagons[1].Animals[1].FoodType);
+
+            Assert.AreEqual(AnimalEnums.SizePoint.Medium, carnivoreDescendingTrain.Wagons[1].Animals[2].SizePoint);
+            Assert.AreEqual(AnimalEnums.FoodType.Herbivore, carnivoreDescendingTrain.Wagons[1].Animals[2].FoodType);
+
+            // Wagon 3:
+            Assert.AreEqual(AnimalEnums.SizePoint.Small, carnivoreDescendingTrain.Wagons[2].Animals[0].SizePoint);
+            Assert.AreEqual(AnimalEnums.FoodType.Carnivore, carnivoreDescendingTrain.Wagons[2].Animals[0].FoodType);
+
+            Assert.AreEqual(AnimalEnums.SizePoint.Big, carnivoreDescendingTrain.Wagons[2].Animals[1].SizePoint);
+            Assert.AreEqual(AnimalEnums.FoodType.Herbivore, carnivoreDescendingTrain.Wagons[2].Animals[1].FoodType);
+
+            // CarnivoreAscendingAnimals
+            Assert.AreEqual(4, carnivoreAscendingTrain.Wagons.Count());
+
+            // HerbivoreDescendingAnimals
+            Assert.AreEqual(4, herbivoreDescendingTrain.Wagons.Count());
+
+            // HerbivoreAscendingAnimals
+            Assert.AreEqual(4, herbivoreAscendingTrain.Wagons.Count());
+        }
 
         [TestMethod]
         public void DivideAnimalsOverWagons_Scenario6()
