@@ -90,7 +90,7 @@
             {
                 if (!IsCurrentAnimalCarnivore(currentAnimal))
                 {
-                    return AddAnimalToWagon(currentAnimal);
+                    return true;
                 }
             }
             return false;
