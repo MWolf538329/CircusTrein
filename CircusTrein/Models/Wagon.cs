@@ -57,7 +57,7 @@
 
         public bool DoesWagonContainCarnivore()
         {
-            return animals.Where(a => a.FoodType == AnimalEnums.FoodType.Carnivore).Count() != 0;
+            return animals.Where(a => a.FoodType == AnimalEnums.FoodType.Carnivore).Any();
         }
 
         public bool AreAllAnimalsBiggerThanCarnivore(Animal carnivore)
