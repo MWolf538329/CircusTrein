@@ -11,6 +11,11 @@
             FoodType = foodType;
         }
 
+        public bool WillThereBeAFight(Animal animal)
+        {
+            return FoodType == AnimalEnums.FoodType.Carnivore && (int)SizePoint <= (int)animal.SizePoint;
+        }
+
         public override string ToString()
         {
             return $"{SizePoint} - {FoodType} - {(int)SizePoint}";

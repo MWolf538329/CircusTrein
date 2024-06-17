@@ -1,4 +1,5 @@
-﻿namespace CircusTrein.Models
+﻿
+namespace CircusTrein.Models
 {
     public class Wagon
     {
@@ -25,28 +26,56 @@
 
         private bool IsAnimalCompatible(Animal currentAnimal)
         {
-            bool isCompatible = true;
-
-            if (DoesNotExceedMaxCapacity(currentAnimal))
+            if (DoesNotExceedMaxCapacity(currentAnimal) && !WillThereBeAFight(currentAnimal))
             {
-                if (!DoesWagonContainCarnivore())
-                {
-                    if (IsCurrentAnimalCarnivore(currentAnimal))
-                        if (!AreAllAnimalsBiggerThanCarnivore(currentAnimal)) isCompatible = false;
-                }
-                else
-                {
-                    if (!IsCurrentAnimalCarnivore(currentAnimal))
-                    {
-                        if (!IsCurrentAnimalBiggerThanCarnivore(currentAnimal,
-                        animals.Where(a => a.FoodType == AnimalEnums.FoodType.Carnivore).FirstOrDefault()!)) isCompatible = false;
-                    }
-                    else isCompatible = false;
-                }
+                //AddAnimalToWagon(currentAnimal);
+                return true;
             }
-            else isCompatible = false;
+            else
+                return false;
 
-            return isCompatible;
+
+
+
+            //if (DoesNotExceedMaxCapacity(currentAnimal))
+            //{
+            //    if (!DoesWagonContainCarnivore())
+            //    {
+            //        if (IsCurrentAnimalCarnivore(currentAnimal))
+            //            if (!AreAllAnimalsBiggerThanCarnivore(currentAnimal)) isCompatible = false;
+            //    }
+            //    else
+            //    {
+            //        if (!IsCurrentAnimalCarnivore(currentAnimal))
+            //        {
+            //            if (!IsCurrentAnimalBiggerThanCarnivore(currentAnimal,
+            //            animals.Where(a => a.FoodType == AnimalEnums.FoodType.Carnivore).FirstOrDefault()!)) isCompatible = false;
+            //        }
+            //        else isCompatible = false;
+            //    }
+            //}
+            //else isCompatible = false;
+
+            //return isCompatible;
+        }
+
+        private bool WillThereBeAFight(Animal currentAnimal)
+        {
+            bool fight = false;
+
+            foreach (Animal animal in animals)
+            {
+                if (!fight) fight = animal.WillThereBeAFight(currentAnimal);
+            }
+
+            return fight;
+
+            //foreach (Animal animal in animals)
+            //{
+            //    if (currentAnimal.GaDeGijVechte(animal))
+            //{ }
+            //        if ((int)animal.SizePoint <= (int)carnivore.SizePoint) isCompatible = false;
+            //}
         }
 
         #region Checks
