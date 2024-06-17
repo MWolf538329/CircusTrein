@@ -7,16 +7,13 @@
 
         public void DivideAnimalsOverWagons(List<Animal> animals)
         {
-            //if (wagons.Count == 0) AddWagonToTrain();
-
             foreach (Animal currentAnimal in animals)
             {
                 bool animalAddedToWagon = false;
 
                 foreach (Wagon currentWagon in wagons)
                 {
-                    if (!animalAddedToWagon)
-                        animalAddedToWagon = currentWagon.TryToAddAnimalToWagon(currentAnimal);
+                    if (!animalAddedToWagon) animalAddedToWagon = currentWagon.TryToAddAnimalToWagon(currentAnimal);
                 }
 
                 if (!animalAddedToWagon)
@@ -27,7 +24,7 @@
             }
         }
 
-        public void AddWagonToTrain()
+        private void AddWagonToTrain()
         {
             wagons.Add(new Wagon());
         }

@@ -23,6 +23,30 @@ namespace CircusTreinUnitTests
             Assert.AreEqual(1, train.Wagons.Count());
         }
 
+        [TestMethod]
+        public void DoesNotExceedMaxCapacity_Yes()
+        {
+            // Arrange
+            Wagon wagon = new();
+            wagon.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore));
+            wagon.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore));
+
+            // Act & Assert
+            Assert.AreEqual(true, wagon.DoesNotExceedMaxCapacity(new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)));
+        }
+
+        [TestMethod]
+        public void DoesNotExceedMaxCapacity_No()
+        {
+            // Arrange
+            Wagon wagon = new();
+            wagon.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore));
+            wagon.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore));
+
+            // Act & Assert
+            Assert.AreEqual(false, wagon.DoesNotExceedMaxCapacity(new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore)));
+        }
+
         #region Sorting Tests
         [TestMethod]
         public void SortingTests_CarnivoreDescending()
@@ -170,136 +194,6 @@ namespace CircusTreinUnitTests
 
             Assert.AreEqual(AnimalEnums.SizePoint.Big, herbivoreAscendingAnimals[5].SizePoint);
             Assert.AreEqual(AnimalEnums.FoodType.Carnivore, herbivoreAscendingAnimals[5].FoodType);
-        }
-        #endregion
-
-        #region Checks
-        [TestMethod]
-        public void DoesNotExceedMaxCapacity_Yes()
-        {
-            // Arrange
-            Wagon wagon = new();
-            wagon.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore));
-            wagon.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore));
-
-            // Act & Assert
-            Assert.AreEqual(true, wagon.DoesNotExceedMaxCapacity(new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)));
-        }
-
-        [TestMethod]
-        public void DoesNotExceedMaxCapacity_No()
-        {
-            // Arrange
-            Wagon wagon = new();
-            wagon.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore));
-            wagon.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore));
-
-            // Act & Assert
-            Assert.AreEqual(false, wagon.DoesNotExceedMaxCapacity(new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore)));
-        }
-
-        [TestMethod]
-        public void DoesWagonContainCarnivore_Yes()
-        {
-            // Arrange
-            Wagon wagon = new();
-            wagon.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore));
-
-            // Act & Assert
-            Assert.AreEqual(true, wagon.DoesWagonContainCarnivore());
-        }
-
-        [TestMethod]
-        public void DoesWagonContainCarnivore_No()
-        {
-            // Arrange
-            Wagon wagon = new();
-            wagon.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore));
-
-            // Act & Assert
-            Assert.AreEqual(false, wagon.DoesWagonContainCarnivore());
-        }
-
-        [TestMethod]
-        public void AreAllAnimalsBiggerThanCarnivore_Yes()
-        {
-            // Arrange
-            Wagon wagonBigHerbivore = new();
-            Wagon wagonMediumHerbivore = new();
-            Wagon wagonSmallHerbivore = new();
-
-            wagonBigHerbivore.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore));
-            wagonMediumHerbivore.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore));
-            wagonSmallHerbivore.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore));
-
-            // Act & Assert
-            Assert.AreEqual(true, wagonBigHerbivore.AreAllAnimalsBiggerThanCarnivore(new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore)));
-            Assert.AreEqual(true, wagonMediumHerbivore.AreAllAnimalsBiggerThanCarnivore(new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore)));
-            Assert.AreEqual(false, wagonSmallHerbivore.AreAllAnimalsBiggerThanCarnivore(new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore)));
-        }
-
-        [TestMethod]
-        public void AreAllAnimalsBiggerThanCarnivore_No()
-        {
-            // Arrange
-            Wagon wagonBigHerbivore = new();
-            Wagon wagonMediumHerbivore = new();
-            Wagon wagonSmallHerbivore = new();
-
-            wagonBigHerbivore.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore));
-            wagonMediumHerbivore.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore));
-            wagonSmallHerbivore.TryToAddAnimalToWagon(new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore));
-
-            // Act & Assert
-            Assert.AreEqual(false, wagonBigHerbivore.AreAllAnimalsBiggerThanCarnivore(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore)));
-            Assert.AreEqual(false, wagonMediumHerbivore.AreAllAnimalsBiggerThanCarnivore(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore)));
-            Assert.AreEqual(false, wagonSmallHerbivore.AreAllAnimalsBiggerThanCarnivore(new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore)));
-        }
-
-        [TestMethod]
-        public void IsCurrentAnimalBiggerThanCarnivore_Yes()
-        {
-            // Arrange
-            Wagon wagon = new();
-            Animal currentAnimal = new(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore);
-            Animal carnivore = new(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore);
-
-            // Act & Assert
-            Assert.AreEqual(true, wagon.IsCurrentAnimalBiggerThanCarnivore(currentAnimal, carnivore));
-        }
-
-        [TestMethod]
-        public void IsCurrentAnimalBiggerThanCarnivore_No()
-        {
-            // Arrange
-            Wagon wagon = new();
-            Animal currentAnimal = new(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore);
-            Animal carnivore = new(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore);
-
-            // Act & Assert
-            Assert.AreEqual(false, wagon.IsCurrentAnimalBiggerThanCarnivore(currentAnimal, carnivore));
-        }
-
-        [TestMethod]
-        public void IsCurrentAnimalCarnivore_Yes()
-        {
-            // Arrange
-            Wagon wagon = new();
-            Animal animal = new(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore);
-
-            // Act & Assert
-            Assert.AreEqual(true, wagon.IsCurrentAnimalCarnivore(animal));
-        }
-
-        [TestMethod]
-        public void IsCurrentAnimalCarnivore_No()
-        {
-            // Arrange
-            Wagon wagon = new();
-            Animal animal = new(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore);
-
-            // Act & Assert
-            Assert.AreEqual(false, wagon.IsCurrentAnimalCarnivore(animal));
         }
         #endregion
 

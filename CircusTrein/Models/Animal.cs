@@ -11,9 +11,22 @@
             FoodType = foodType;
         }
 
-        public bool WillThereBeAFight(Animal animal)
+        public bool CanCoexist(Animal animal)
         {
-            return FoodType == AnimalEnums.FoodType.Carnivore && (int)SizePoint <= (int)animal.SizePoint;
+            bool coexist = true;
+
+            if (FoodType == AnimalEnums.FoodType.Carnivore && animal.FoodType == AnimalEnums.FoodType.Carnivore) 
+                coexist = false;
+
+            if (FoodType == AnimalEnums.FoodType.Herbivore && animal.FoodType == AnimalEnums.FoodType.Carnivore)
+                if ((int)SizePoint <= (int)animal.SizePoint)
+                    coexist = false;
+
+            if (FoodType == AnimalEnums.FoodType.Carnivore && animal.FoodType == AnimalEnums.FoodType.Herbivore)
+                if ((int)SizePoint >= (int)animal.SizePoint)
+                    coexist = false;
+
+            return coexist;
         }
 
         public override string ToString()
