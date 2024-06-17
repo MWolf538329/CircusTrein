@@ -4,8 +4,7 @@ namespace CircusTrein
 {
     public partial class CircusTrein : Form
     {
-        private Train? train;
-        private List<Animal> animals = new();
+        private List<Animal> animalsToDivide = new();
 
         public CircusTrein()
         {
@@ -14,9 +13,6 @@ namespace CircusTrein
 
         private void CircusTrein_Load(object sender, EventArgs e)
         {
-            train = new();
-            animals = new();
-
             FillUIElements();
         }
 
@@ -26,7 +22,7 @@ namespace CircusTrein
             {
                 Animal newAnimal = new Animal((AnimalEnums.SizePoint)cb_Size.SelectedItem, (AnimalEnums.FoodType)cb_FoodType.SelectedItem);
 
-                animals.Add(newAnimal);
+                animalsToDivide.Add(newAnimal);
                 lb_AnimalList.Items.Add(newAnimal.ToString());
             }
             else MessageBox.Show("Not all comboboxes are filled!");
@@ -34,15 +30,14 @@ namespace CircusTrein
 
         private void btn_ClearAnimalList_Click(object sender, EventArgs e)
         {
-            animals.Clear();
+            animalsToDivide.Clear();
             lb_AnimalList.Items.Clear();
-            train = new();
             txt_Output.Text = string.Empty;
         }
 
         private void btn_Calculate_Click(object sender, EventArgs e)
         {
-            /// Find the most efficient way to sort the animals over the wagons...
+            /// Find the most efficient way to sort the animalsToDivide over the wagons...
             /// Link: https://en.wikipedia.org/wiki/Bin_packing_problem
 
             Train carnivoreDescendingTrain = new();
@@ -50,10 +45,10 @@ namespace CircusTrein
             Train herbivoreDescendingTrain = new();
             Train herbivoreAscendingTrain = new();
 
-            List<Animal> carnivoreDescendingAnimals = animals.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).Reverse().ToList();
-            List<Animal> carnivoreAscendingAnimals = animals.OrderByDescending(a => (int)a.SizePoint).ThenBy(a => (int)a.FoodType).ToList();
-            List<Animal> herbivoreDescendingAnimals = animals.OrderByDescending(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).Reverse().ToList();
-            List<Animal> herbivoreAscendingAnimals = animals.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).ToList();
+            List<Animal> carnivoreDescendingAnimals = animalsToDivide.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).Reverse().ToList();
+            List<Animal> carnivoreAscendingAnimals = animalsToDivide.OrderByDescending(a => (int)a.SizePoint).ThenBy(a => (int)a.FoodType).ToList();
+            List<Animal> herbivoreDescendingAnimals = animalsToDivide.OrderByDescending(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).Reverse().ToList();
+            List<Animal> herbivoreAscendingAnimals = animalsToDivide.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).ToList();
 
             carnivoreDescendingTrain.DivideAnimalsOverWagons(carnivoreDescendingAnimals);
             carnivoreAscendingTrain.DivideAnimalsOverWagons(carnivoreAscendingAnimals);
@@ -138,7 +133,7 @@ namespace CircusTrein
         #region Scenario's
         private void btn_LoadScenario1_Click(object sender, EventArgs e)
         {
-            animals.AddRange(new List<Animal>() {
+            animalsToDivide.AddRange(new List<Animal>() {
                 new Animal(AnimalEnums.SizePoint.Small ,AnimalEnums.FoodType.Carnivore),
                 new Animal(AnimalEnums.SizePoint.Big ,AnimalEnums.FoodType.Herbivore),
                 new Animal(AnimalEnums.SizePoint.Big ,AnimalEnums.FoodType.Herbivore),
@@ -147,7 +142,7 @@ namespace CircusTrein
                 new Animal(AnimalEnums.SizePoint.Medium ,AnimalEnums.FoodType.Herbivore)
             });
 
-            foreach (Animal animal in animals)
+            foreach (Animal animal in animalsToDivide)
             {
                 lb_AnimalList.Items.Add(animal.ToString());
             }
@@ -155,7 +150,7 @@ namespace CircusTrein
 
         private void btn_LoadScenario2_Click(object sender, EventArgs e)
         {
-            animals.AddRange(new List<Animal>() {
+            animalsToDivide.AddRange(new List<Animal>() {
                 new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
                 new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
                 new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore),
@@ -167,7 +162,7 @@ namespace CircusTrein
                 new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)
             });
 
-            foreach (Animal animal in animals)
+            foreach (Animal animal in animalsToDivide)
             {
                 lb_AnimalList.Items.Add(animal.ToString());
             }
@@ -175,7 +170,7 @@ namespace CircusTrein
 
         private void btn_LoadScenario3_Click(object sender, EventArgs e)
         {
-            animals.AddRange(new List<Animal>() {
+            animalsToDivide.AddRange(new List<Animal>() {
                 new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
                 new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Carnivore),
                 new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
@@ -184,7 +179,7 @@ namespace CircusTrein
                 new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)
             });
 
-            foreach (Animal animal in animals)
+            foreach (Animal animal in animalsToDivide)
             {
                 lb_AnimalList.Items.Add(animal.ToString());
             }
@@ -192,7 +187,7 @@ namespace CircusTrein
 
         private void btn_LoadScenario4_Click(object sender, EventArgs e)
         {
-            animals.AddRange(new List<Animal>()
+            animalsToDivide.AddRange(new List<Animal>()
             {
                 new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
                 new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
@@ -207,7 +202,7 @@ namespace CircusTrein
                 new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)
             });
 
-            foreach (Animal animal in animals)
+            foreach (Animal animal in animalsToDivide)
             {
                 lb_AnimalList.Items.Add(animal.ToString());
             }
@@ -215,7 +210,7 @@ namespace CircusTrein
 
         private void btn_LoadScenario5_Click(object sender, EventArgs e)
         {
-            animals.AddRange(new List<Animal>()
+            animalsToDivide.AddRange(new List<Animal>()
             {
                 new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
                 new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Herbivore),
@@ -224,7 +219,7 @@ namespace CircusTrein
                 new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Herbivore)
             });
 
-            foreach (Animal animal in animals)
+            foreach (Animal animal in animalsToDivide)
             {
                 lb_AnimalList.Items.Add(animal.ToString());
             }
@@ -232,7 +227,7 @@ namespace CircusTrein
 
         private void btn_LoadScenario6_Click(object sender, EventArgs e)
         {
-            animals.AddRange(new List<Animal>()
+            animalsToDivide.AddRange(new List<Animal>()
             {
                 new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
                 new Animal(AnimalEnums.SizePoint.Small, AnimalEnums.FoodType.Carnivore),
@@ -244,7 +239,7 @@ namespace CircusTrein
                 new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore)
             });
 
-            foreach (Animal animal in animals)
+            foreach (Animal animal in animalsToDivide)
             {
                 lb_AnimalList.Items.Add(animal.ToString());
             }
@@ -252,7 +247,7 @@ namespace CircusTrein
 
         private void btn_LoadScenario7_Click(object sender, EventArgs e)
         {
-            animals.AddRange(new List<Animal>()
+            animalsToDivide.AddRange(new List<Animal>()
             {
                 new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
                 new Animal(AnimalEnums.SizePoint.Big, AnimalEnums.FoodType.Carnivore),
@@ -280,7 +275,7 @@ namespace CircusTrein
                 new Animal(AnimalEnums.SizePoint.Medium, AnimalEnums.FoodType.Herbivore)
             });
 
-            foreach (Animal animal in animals)
+            foreach (Animal animal in animalsToDivide)
             {
                 lb_AnimalList.Items.Add(animal.ToString());
             }
