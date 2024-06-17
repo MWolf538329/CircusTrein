@@ -5,9 +5,6 @@
         public IReadOnlyList<Wagon> Wagons { get { return wagons; } }
         private List<Wagon> wagons { get; set; } = new();
 
-        public IReadOnlyList<Animal> AnimalsToDivide { get { return animalsToDivide; } }
-        private List<Animal> animalsToDivide { get; set; } = new();
-
         public void DivideAnimalsOverWagons(List<Animal> animals)
         {
             if (wagons.Count == 0)
@@ -38,11 +35,6 @@
         public void AddWagonToTrain()
         {
             wagons.Add(new Wagon());
-        }
-
-        public void AddAnimalToAnimalList(Animal animal)
-        {
-            animalsToDivide.Add(animal);
         }
     }
 }

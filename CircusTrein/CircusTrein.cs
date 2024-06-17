@@ -4,8 +4,8 @@ namespace CircusTrein
 {
     public partial class CircusTrein : Form
     {
-        private Train train;
-        private List<Animal> animals;
+        private Train? train;
+        private List<Animal> animals = new();
 
         public CircusTrein()
         {
@@ -48,14 +48,6 @@ namespace CircusTrein
             /// Find the most efficient way to sort the animals over the wagons...
             /// Link: https://en.wikipedia.org/wiki/Bin_packing_problem
 
-            // Does NOT work with Scenario 3.
-            /// Carnivore first -> Descending
-            //animals = animals.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).Reverse().ToList();
-
-            // Works with Scenario 3 but not with 1.
-            /// Carnivore first -> Ascending
-            //animals = animals.OrderBy(a => (int)a.FoodType).ThenBy(a => (int)a.SizePoint).ToList();
-
             Train carnivoreDescendingTrain = new();
             Train carnivoreAscendingTrain = new();
             Train herbivoreDescendingTrain = new();
@@ -71,14 +63,32 @@ namespace CircusTrein
             herbivoreDescendingTrain.DivideAnimalsOverWagons(herbivoreDescendingAnimals);
             herbivoreAscendingTrain.DivideAnimalsOverWagons(herbivoreAscendingAnimals);
 
-            //train.DivideAnimalsOverWagons(animals);
-
-            //OutputResult(carnivoreDescendingTrain);
-
+            txt_Output.Text += "Summary: " + Environment.NewLine;
             txt_Output.Text += $"CarnivoreDescendingTrain: {carnivoreDescendingTrain.Wagons.Count}" + Environment.NewLine;
             txt_Output.Text += $"CarnivoreAscendingTrain: {carnivoreAscendingTrain.Wagons.Count}" + Environment.NewLine;
             txt_Output.Text += $"HerbivoreDescendingTrain: {herbivoreDescendingTrain.Wagons.Count}" + Environment.NewLine;
             txt_Output.Text += $"HerbivoreAscendingTrain: {herbivoreAscendingTrain.Wagons.Count}" + Environment.NewLine;
+            txt_Output.Text += "----------------------------------------------------" + Environment.NewLine;
+
+            txt_Output.Text += "Begin van Trein: CarnivoreDescendingTrain" + Environment.NewLine;
+            txt_Output.Text += DisplayTrain(carnivoreDescendingTrain);
+            txt_Output.Text += "Einde van de trein!" + Environment.NewLine;
+            txt_Output.Text += "----------------------------------------------------" + Environment.NewLine;
+
+            txt_Output.Text += "Begin van Trein: CarnivoreAscendingTrain" + Environment.NewLine;
+            txt_Output.Text += DisplayTrain(carnivoreAscendingTrain);
+            txt_Output.Text += "Einde van de trein!" + Environment.NewLine + Environment.NewLine;
+            txt_Output.Text += "----------------------------------------------------" + Environment.NewLine;
+
+            txt_Output.Text += "Begin van Trein: HerbivoreDescendingTrain" + Environment.NewLine;
+            txt_Output.Text += DisplayTrain(herbivoreDescendingTrain);
+            txt_Output.Text += "Einde van de trein!" + Environment.NewLine;
+            txt_Output.Text += "----------------------------------------------------" + Environment.NewLine;
+
+            txt_Output.Text += "Begin van Trein: HerbivoreAscendingTrain" + Environment.NewLine;
+            txt_Output.Text += DisplayTrain(herbivoreAscendingTrain);
+            txt_Output.Text += "Einde van de trein!" + Environment.NewLine;
+            txt_Output.Text += "----------------------------------------------------" + Environment.NewLine;
         }
 
         #region UI
@@ -108,11 +118,9 @@ namespace CircusTrein
             }
         }
 
-        private void OutputResult(Train train)
+        private string DisplayTrain(Train train)
         {
             string result = string.Empty;
-
-            result += "Begin van de trein:" + Environment.NewLine;
 
             for (int i = 0; i < train.Wagons.Count; i++)
             {
@@ -126,9 +134,7 @@ namespace CircusTrein
                 result += Environment.NewLine;
             }
 
-            result += "Einde van de trein!";
-
-            txt_Output.Text = result;
+            return result;
         }
         #endregion
 
