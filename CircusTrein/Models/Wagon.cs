@@ -12,20 +12,8 @@
         {
             if (animals.Count() == 0) return AddAnimalToWagon(currentAnimal);
 
-            if (DoesNotExceedMaxCapacity(currentAnimal))
-            {
-                if (!DoesWagonContainCarnivore())
-                {
-                    return AddAnimalToWagon(currentAnimal);
-                }
-                else
-                {
-                    if (IsAnimalCompatible(currentAnimal))
-                    {
-                        return AddAnimalToWagon(currentAnimal);
-                    }
-                }
-            }
+            if (IsAnimalCompatible(currentAnimal)) return AddAnimalToWagon(currentAnimal);
+
             return false;
         }
 
@@ -35,28 +23,54 @@
             return true;
         }
 
+        private bool IsAnimalCompatible(Animal currentAnimal)
+        {
+            bool isCompatible = true;
+
+            if (DoesNotExceedMaxCapacity(currentAnimal))
+            {
+                if (!DoesWagonContainCarnivore())
+                {
+                    if (IsCurrentAnimalCarnivore(currentAnimal))
+                        if (!AreAllAnimalsBiggerThanCarnivore(currentAnimal)) isCompatible = false;
+                }
+                else
+                {
+                    if (!IsCurrentAnimalCarnivore(currentAnimal))
+                    {
+                        if (!IsCurrentAnimalBiggerThanCarnivore(currentAnimal,
+                        animals.Where(a => a.FoodType == AnimalEnums.FoodType.Carnivore).FirstOrDefault()!)) isCompatible = false;
+                    }
+                    else isCompatible = false;
+                }
+            }
+            else isCompatible = false;
+
+            return isCompatible;
+        }
+
         #region Checks
-        private bool DoesNotExceedMaxCapacity(Animal currentAnimal)
+        public bool DoesNotExceedMaxCapacity(Animal currentAnimal)
         {
             return (CurrentCapacity + (int)currentAnimal.SizePoint) <= Wagon._MAXCAPACITYSIZE;
         }
 
-        private bool IsAnimalCompatible(Animal currentAnimal)
-        {
-            if (IsCurrentAnimalBiggerThanCarnivore(currentAnimal,
-                animals.Where(a => a.FoodType == AnimalEnums.FoodType.Carnivore).FirstOrDefault()!))
-            {
-                if (!IsCurrentAnimalCarnivore(currentAnimal))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private bool DoesWagonContainCarnivore()
+        public bool DoesWagonContainCarnivore()
         {
             return animals.Where(a => a.FoodType == AnimalEnums.FoodType.Carnivore).Count() != 0;
+        }
+
+        public bool AreAllAnimalsBiggerThanCarnivore(Animal carnivore)
+        {
+            bool isCompatible = true;
+
+            foreach (Animal animal in animals)
+            {
+                if (isCompatible)
+                    if ((int)animal.SizePoint <= (int)carnivore.SizePoint) isCompatible = false;
+            }
+
+            return isCompatible;
         }
 
         public bool IsCurrentAnimalBiggerThanCarnivore(Animal currentAnimal, Animal carnivore)
