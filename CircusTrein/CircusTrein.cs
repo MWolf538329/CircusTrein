@@ -22,17 +22,14 @@ namespace CircusTrein
 
         private void btn_AddAnimal_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(cb_Size.SelectedItem.ToString()) && !String.IsNullOrWhiteSpace(cb_FoodType.SelectedItem.ToString()))
+            if (!string.IsNullOrWhiteSpace(cb_Size.SelectedItem.ToString()) && !string.IsNullOrWhiteSpace(cb_FoodType.SelectedItem.ToString()))
             {
                 Animal newAnimal = new Animal((AnimalEnums.SizePoint)cb_Size.SelectedItem, (AnimalEnums.FoodType)cb_FoodType.SelectedItem);
 
                 animals.Add(newAnimal);
                 lb_AnimalList.Items.Add(newAnimal.ToString());
             }
-            else
-            {
-                MessageBox.Show("Not all comboboxes are filled!");
-            }
+            else MessageBox.Show("Not all comboboxes are filled!");
         }
 
         private void btn_ClearAnimalList_Click(object sender, EventArgs e)
